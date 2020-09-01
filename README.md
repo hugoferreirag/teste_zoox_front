@@ -1,29 +1,21 @@
 # app
 
-## Project setup
+## Instalar dependencias
 ```
 yarn install
 ```
 
-### Compiles and hot-reloads for development
+### Compilação em dev
 ```
 yarn serve
 ```
 
-### Compiles and minifies for production
+### Compilação em Prod
 ```
 yarn build
-```
-
-### Run your unit tests
-```
-yarn test:unit
 ```
 
 ### Lints and fixes files
 ```
 yarn lint
 ```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
