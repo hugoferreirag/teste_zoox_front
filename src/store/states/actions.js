@@ -2,6 +2,7 @@ import api from '../../config/api'
 
 export default {
   async getAllStates ({ commit }, payload) {
+    console.log(process.env.VUE_APP_BASE_URL)
     commit('CLEAR_ERROR')
     try {
       const { data } = await api.post('/states/get', payload)
