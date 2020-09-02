@@ -8,6 +8,9 @@ export default {
   getLogin (state) {
     return state.login
   },
+  getPassUpdate (state) {
+    return state.passUpdate
+  },
   getDeleteSuccess (state) {
     return state.deleteSuccess
   }

@@ -8,7 +8,7 @@ export default {
       commit('SET_CITIES', data.items)
       commit('SET_TOTAL_PAGES', data.total)
     } catch (error) {
-      commit('SET_ERROR', error)
+      commit('SET_ERROR', error.response.data)
     }
   },
   async filters ({ commit }, payload) {
@@ -17,7 +17,7 @@ export default {
       const { data } = await api.post('/cities/filter', payload)
       commit('SET_CITIES', data)
     } catch (error) {
-      commit('SET_ERROR', error)
+      commit('SET_ERROR', error.response.data)
     }
   },
   async newCitie ({ commit }, payload) {

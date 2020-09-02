@@ -36,7 +36,8 @@
                 <v-text-field :disabled='name.length > 0' v-model='initials' label='Abreviação'></v-text-field>
               </v-col>
               <v-col class='mt-3' md='2'>
-                <v-btn dark outlined @click='filter' color='blue'>Filtrar</v-btn>
+                <v-btn dark outlined v-if="!filterState" @click='filter' color='blue'>Filtrar</v-btn>
+                <v-btn dark outlined v-else @click='clearFilter' color='grey'>Limpar</v-btn>
               </v-col>
             </v-row>
             <v-divider></v-divider>
@@ -92,6 +93,7 @@ export default {
     initials: '',
     dataUpdate: {},
     idUpdate: null,
+    filterState: false,
     headers: [
       {
         text: 'Estado',
@@ -132,9 +134,11 @@ export default {
       if (this.name) {
         await this.getFilters({ name: this.name })
         this.dataItems = this.states
+        this.filterState = true
       } else if (this.initials) {
         await this.getFilters({ initials: this.initials })
         this.dataItems = this.states
+        this.filterState = true
       } else {
         await this.getFilters({})
         this.dataItems = this.states
@@ -163,9 +167,15 @@ export default {
       await this.getAllStates({ page: this.page })
       this.dataItems = this.states
     },
+    async clearFilter () {
+      this.name = ''
+      this.initials = ''
+      this.filterState = false
+      await this.initialize()
+    },
     async initialize () {
       await this.getAllStates({ page: this.page })
-      const total = this.totalPages / 10
+      const total = this.totalPages ? this.totalPages / 10 : 1
       this.pageCount = Math.ceil(total)
       this.dataItems = this.states
     },

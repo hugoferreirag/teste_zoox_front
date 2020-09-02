@@ -8,10 +8,11 @@ export default {
       const { data } = await api.post('/auth', payload)
       localStorage.TOKEN = data.token
       const tokenDecoded = Vue.$jwt.decode(data.token)
+      api.defaults.headers.Authorization = `Bearer ${localStorage.TOKEN}`
 
       commit('SET_LOGIN', tokenDecoded)
     } catch (error) {
-      commit('SET_ERROR', error)
+      commit('SET_ERROR', error.response.data)
     }
   },
   async newUser ({ commit }, payload) {
@@ -24,14 +25,13 @@ export default {
       commit('SET_ERROR', error.response.data)
     }
   },
-  async updateUser ({ commit }, payload) {
+  async updatePass ({ commit }, payload) {
     commit('CLEAR_ERROR')
-    commit('CITIE_CREATED', false)
-    const { id } = payload
-    delete payload.id
+    commit('PASS_UPDATE', false)
+    const tokenDecoded = Vue.$jwt.decode(localStorage.TOKEN)
     try {
-      await api.put(`/user/${id}`, payload)
-      commit('CITIE_CREATED', true)
+      await api.put(`/user/${tokenDecoded.id}`, { password: payload })
+      commit('PASS_UPDATE', true)
     } catch (error) {
       commit('SET_ERROR', error.response.data)
     }
@@ -40,7 +40,8 @@ export default {
     commit('CLEAR_ERROR')
     commit('DELETE_SUCCESS', false)
     try {
-      await api.delete(`/user/${payload}`)
+      const tokenDecoded = Vue.$jwt.decode(localStorage.TOKEN)
+      await api.delete(`/user/${tokenDecoded.id}`)
       commit('DELETE_SUCCESS', true)
     } catch (error) {
       commit('SET_ERROR', error.response.data)

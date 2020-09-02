@@ -8,6 +8,9 @@ export default {
   USER_CREATED (state, payload) {
     state.createdUser = payload
   },
+  PASS_UPDATE (state, payload) {
+    state.passUpdate = payload
+  },
   CLEAR_ERROR (state) {
     state.error = null
   },

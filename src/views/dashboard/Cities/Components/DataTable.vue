@@ -24,10 +24,22 @@
             </v-row>
             <v-row justify='end'>
               <v-col md='2'>
-                <v-text-field :disabled='initials.length > 0' v-model='name' label='Nome da cidade'></v-text-field>
+               <v-autocomplete
+                  :items="states"
+                  :disabled="name.length > 0"
+                  color="white"
+                  v-model="stateId"
+                  item-text="name"
+                  item-value="_id"
+                  label="Estados"
+                ></v-autocomplete>
+              </v-col>
+              <v-col md='2'>
+                <v-text-field :disabled='stateId.length > 0' v-model='name' label='Nome da cidade'></v-text-field>
               </v-col>
               <v-col class='mt-3' md='2'>
-                <v-btn dark outlined @click='filter' color='blue'>Filtrar</v-btn>
+                <v-btn dark outlined v-if="!filterState" @click='filter' color='blue'>Filtrar</v-btn>
+                <v-btn dark outlined v-else @click='clearFilter' color='grey'>Limpar</v-btn>
               </v-col>
             </v-row>
             <v-divider></v-divider>
@@ -75,6 +87,8 @@ export default {
     }
   },
   data: () => ({
+    filterState: false,
+    stateId: '',
     page: 1,
     pageCount: 10,
     itemsPerPage: 10,
@@ -129,13 +143,21 @@ export default {
     findState (stateId) {
       return this.stateItems.find((el) => el._id === stateId)
     },
+    async clearFilter () {
+      this.name = ''
+      this.stateId = ''
+      this.filterState = false
+      await this.initialize()
+    },
     async filter () {
       if (this.name) {
         await this.getFilters({ name: this.name })
         this.dataItems = this.cities
-      } else if (this.initials) {
-        await this.getFilters({ initials: this.initials })
+        this.filterState = true
+      } else if (this.stateId) {
+        await this.getFilters({ stateId: this.stateId })
         this.dataItems = this.cities
+        this.filterState = true
       } else {
         await this.getFilters({})
         this.dataItems = this.cities
@@ -167,7 +189,7 @@ export default {
     async initialize () {
       await this.getAllCities({ page: this.page })
       await this.getAllStates({ page: 0, noLimit: true })
-      const total = this.totalPages / 10
+      const total = this.totalPages ? this.totalPages / 10 : 1
       this.pageCount = Math.ceil(total)
       this.dataItems = this.cities
       this.stateItems = this.states

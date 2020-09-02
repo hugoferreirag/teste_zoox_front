@@ -17,13 +17,32 @@
             </v-list-item>
 
             <v-card-actions>
-                <v-btn text dark color="pink">Nova senha</v-btn>
-                <v-btn @click="login" outlined dark color="blue">Entrar</v-btn>
+              <v-row justify="center">
+                <v-col md="12" align="center">
+                  <v-btn @click="login" outlined dark color="blue">Entrar</v-btn>
+                </v-col>
+              </v-row>
             </v-card-actions>
             </v-card>
             <NewUser/>
           </v-col>
       </v-row>
+      <v-dialog v-model="dialog" persistent max-width="290">
+      <v-card>
+        <v-card-text>
+            <v-row justidy="center">
+                <v-col md="12" align="center">
+                    <v-alert color="red" dark outlined> {{error}} </v-alert>
+                </v-col>
+            </v-row>
+        </v-card-text>
+        <v-card-actions >
+            <v-col align="center">
+                <v-btn color="red darken-1" text @click="retryLogin">Fechar</v-btn>
+            </v-col>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </v-container>
 </template>
 <script>
@@ -56,10 +75,18 @@ export default {
     ...mapActions({
       authenticate: 'Auth/login'
     }),
+    retryLogin () {
+      this.clearError()
+      this.dialog = false
+    },
     async login () {
       if (!this.$refs.form.validate()) return
       await this.authenticate(this.user)
       if (!this.error) this.$router.push({ name: 'admin' })
+      else {
+        this.user = {}
+        this.dialog = true
+      }
     }
   }
 }

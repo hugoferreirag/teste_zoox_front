@@ -19,6 +19,7 @@
                   <v-autocomplete
                     :items="states"
                     color="white"
+                    :rules="rulesState"
                     v-model="citie.stateId"
                     item-text="name"
                     item-value="_id"
@@ -31,7 +32,7 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="red darken-1" text @click="close">Cancelar</v-btn>
+          <v-btn color="red darken-1" text @click="close">Fechar</v-btn>
           <v-btn color="blue darken-1" text @click="createCitie">Salvar</v-btn>
         </v-card-actions>
       </v-card>
@@ -48,8 +49,8 @@ export default {
     nameRules: [
       valueInput => (!!valueInput && valueInput.length > 3) || 'Insira um nome'
     ],
-    initialsRules: [
-      valueInput => (!!valueInput && valueInput.length === 2) || 'Insira uma Sigla'
+    rulesState: [
+      valueInput => !!valueInput || 'Escolha um estado'
     ]
   }),
   props: {
