@@ -1,4 +1,5 @@
 # Front - End Teste ZOOX
+## Antes de prosseguir veja o video explicativo de fluxo do sistema rodando sem erros: https://youtu.be/scCo69cq2iY
 
 ## Instalar dependencias
 ```
