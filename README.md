@@ -28,9 +28,9 @@ Vue, Vuex, Vue routers, moment.js
 
 ### Configurações
 
-##### Criar o arquivo .env na raiz do projeto e inserir a variavel BASE_URL, exemplo:
+##### Editar o arquivo .env na raiz do projeto e inserir a variavel VUE_APP_BASE_URL, exemplo:
 ```
-BASE_URL= 'http://localhost:3000'
+VUE_APP_BASE_URL= 'http://localhost:3000'
 ```
 ##### Caso queira configurar o endpoint diretamente no axios ir em SRC> config> api.js e alterar a URL default, modelo do arquivo:
 
@@ -38,7 +38,7 @@ BASE_URL= 'http://localhost:3000'
 import axios from 'axios'
 
 const api = axios.create({
-  baseURL: process.env.BASE_URL || 'http://localhost:3000',
+  baseURL: process.env.VUE_APP_BASE_URL || 'http://localhost:3000',
   headers: {
     'Cache-Control': 'no-cache',
     'Content-type': 'application/json'
