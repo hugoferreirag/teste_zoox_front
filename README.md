@@ -50,26 +50,37 @@ export default api
 
 ### Funcionalidades:
 
+### 1 - LOGIN
+##### 1.1 - Criar Acesso 
 ```
-O sistemas inicia na tela do crud de Estados.
-
-Sendo que a dois botôes para navegar entre o crud de ESTADOS e crud de CIDADES
-
-ESTADOS:
-Com uma tabela para vizualização e filtros e um botão para criação de um novo estado.
-Após inserir um estado e ele ser listado, verás as opção de deletar e editar.
-
-OBS: só podera ser deletado um estado que não tenha uma cidade associada.
-
-CIDADES:
-Com uma tabela para vizualização e filtros e um botão para criação de uma nova cidade.
-Após inserir uma cidade e ela ser listada, verás as opção de deletar e editar.
-
-OBS: Diferente dos estados cidades podem ser excluidas livremente.
-
-
-Regras Gerais: Nomes ou Siglas de estado e cidade não serão criadas se ja existirem no banco.
-
+Na tela inicial, a um link para criar acesso, onde devera gerar um nickName e uma senha.
 ```
+##### 1.2 - Login
+```
+Após criado o acesso com sucesso, basta fazer o login e será authenticado, se tudo der certo será redirecionado para dashboard.
+```
+### 2 - Dashboard
+
+### 2.1 - Estados
+```
+A primeira página é a de estados.
+Contendo uma tabela om filtros, ordenação e paginação, um botão para criar um novo estado e dois botões na parte superior para transitar entre cidades e estados.
+
+A primeira coisa a se fazer é adicionar um estado, sendo assim atualizando a tabela de vizualização de forma assincrona, dando as opções de atualizar os dados do estado ou deleta-lo, caso adicione uma cidade relacionada ao estado, ele não pode ser deletado apenas atualizado, pois para deleta-lo deve-se antes deletar todas as cidades vinculadas a ele pelo seu Id.
+```
+### 2.2 - Cidades
+```
+A segunda página é a de cidades.
+Contendo uma tabela com filtros, ordenação e paginação, um botão para criar um novo estado e dois botões na parte superior para transitar entre cidades e estados.
+
+A primeira coisa a se fazer é adicionar uma cidade, sendo assim atualizando a tabela de vizualização de forma assincrona, dando as opções de atualizar os dados da cidade ou deleta-la.
+```
+### 2.4 - Configurações de acesso
+```
+Há um botão no canto superior direito, com a label "CONFIGURAÇÕES DE ACESSO".
+Nele é possivel modificar a senha de acesso, desconectar-se do sistema voltando para página de login ou até mesmo deletar o acesso atual do banco de dados.
+```
+
+
 
 
