@@ -1,22 +1,24 @@
 const dashboardRouter = [
   {
-    path: '/',
+    path: '/dashboard',
     name: 'admin',
     redirect: { name: 'admin dashboard' },
     component: () => import('@/views/dashboard/Index.vue'),
     meta: {
       showToolbar: true,
-      breadCrumb: 'Admin'
+      breadCrumb: 'Admin',
+      requiresAuth: true
     },
     children: [
       {
-        path: 'dashboard',
+        path: '/',
         name: 'admin dashboard',
         component: () => import('@/views/dashboard/Index.vue'),
         meta: {
           showToolbar: true,
           title: 'Dashboard',
-          breadCrumb: 'Dashboard'
+          breadCrumb: 'Dashboard',
+          requiresAuth: true
         }
       }
     ]

@@ -4,7 +4,6 @@
       <v-col md='12'>
         <v-data-table
           hide-default-footer
-          :options='options'
           :headers='headers'
           :items='dataItems'
           sort-by='calories'
