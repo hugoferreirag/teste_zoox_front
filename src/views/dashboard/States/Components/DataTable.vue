@@ -3,6 +3,7 @@
     <v-row justify='center'>
       <v-col md='12'>
         <v-data-table
+          :items-per-page="itemsPerPage"
           hide-default-footer
           :headers='headers'
           :items='dataItems'
@@ -84,7 +85,8 @@ export default {
   },
   data: () => ({
     page: 1,
-    pageCount: 1,
+    pageCount: 0,
+    itemsPerPage: 10,
     dialog: false,
     updateDialog: false,
     dialogStates: false,
@@ -134,10 +136,14 @@ export default {
       if (this.name) {
         await this.getFilters({ name: this.name })
         this.dataItems = this.states
+        this.itemsPerPage = this.dataItems.length
+        this.pageCount = 1
         this.filterState = true
       } else if (this.initials) {
         await this.getFilters({ initials: this.initials })
         this.dataItems = this.states
+        this.itemsPerPage = this.dataItems.length
+        this.pageCount = 1
         this.filterState = true
       } else {
         await this.getFilters({})
@@ -177,6 +183,7 @@ export default {
       await this.getAllStates({ page: this.page })
       const total = this.totalPages ? this.totalPages / 10 : 1
       this.pageCount = Math.ceil(total)
+      this.itemsPerPage = 10
       this.dataItems = this.states
     },
     save () {

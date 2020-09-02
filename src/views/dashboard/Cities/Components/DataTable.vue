@@ -2,7 +2,7 @@
   <v-container>
     <v-row justify='center'>
       <v-col md='12'>
-        <v-data-table hide-default-footer :headers='headers' :items='dataItems' sort-by='calories' class='elevation-1'>
+        <v-data-table :items-per-page="itemsPerPage" hide-default-footer :headers='headers' :items='dataItems' sort-by='calories' class='elevation-1'>
           <template v-slot:top>
             <UpdateCitie
               @close='closeUpdate'
@@ -90,7 +90,7 @@ export default {
     filterState: false,
     stateId: '',
     page: 1,
-    pageCount: 10,
+    pageCount: 0,
     itemsPerPage: 10,
     dialog: false,
     updateDialog: false,
@@ -153,14 +153,19 @@ export default {
       if (this.name) {
         await this.getFilters({ name: this.name })
         this.dataItems = this.cities
+        this.pageCount = 1
+        this.itemsPerPage = this.dataItems.length
         this.filterState = true
       } else if (this.stateId) {
         await this.getFilters({ stateId: this.stateId })
         this.dataItems = this.cities
+        this.pageCount = 1
+        this.itemsPerPage = this.dataItems.length
         this.filterState = true
       } else {
         await this.getFilters({})
         this.dataItems = this.cities
+        this.itemsPerPage = this.dataItems.length
       }
     },
     async deleteItem (id) {
@@ -191,6 +196,7 @@ export default {
       await this.getAllStates({ page: 0, noLimit: true })
       const total = this.totalPages ? this.totalPages / 10 : 1
       this.pageCount = Math.ceil(total)
+      this.itemsPerPage = 10
       this.dataItems = this.cities
       this.stateItems = this.states
     },
