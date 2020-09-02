@@ -48,7 +48,7 @@ const api = axios.create({
 export default api
 ```
 
-### Funcionalidades:
+## MAPA DO SISTEMA (UTILIZAÇÃO E FUNCIONALIDADES):
 
 ### 1 - LOGIN
 ##### 1.1 - Criar Acesso 
